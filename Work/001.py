@@ -1,0 +1,11 @@
+f = open('foo', 'rt')
+print(f)
+g = open('bar', 'wt')
+print(g)
+data = f.read()
+print(data)
+g.write('some text')
+print(g)
+f.close()
+g.close()
+
