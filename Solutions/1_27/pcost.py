@@ -52,28 +52,74 @@
 #         return total_cost
 # print(portfolio_cost('../../Work/Data/portfolio.csv'))
 #################################################################
-import sys, csv
+# import sys, csv
+#
+#
+# def portfolio_cost(filename):
+#     total_cost = 0.0
+#     with open(filename,'rt') as f:
+#         rows = csv.reader(f)
+#         headers = next(rows)
+#         print(headers)
+#         for row in rows:
+#             print(row)
+#             nshares = int(row[1])
+#             price = float(row[2])
+#             total_cost += nshares * price
+#     return total_cost
+#
+#
+# print(sys.argv)
+# if len(sys.argv) == 2:
+#     filename = sys.argv[1]
+# else:
+#     filename = '../../Work/Data/portfolio.csv'
+#
+# cost = portfolio_cost(filename)
+# print('Total cost:', cost)
+#################################################################
+
+
+# def portfolio_cost(filename):
+#     total_cost = 0.0
+#     with open(filename, 'rt') as f:
+#         rows = csv.reader(f)
+#         headers = next(rows)
+#         print(headers)
+#         for rowno, row in enumerate(rows, start=1):
+#             # print(row)
+#             try:
+#                 nshares = int(row[1])
+#             except ValueError:
+#                 print(f'Row {rowno}: Bad row:{row}')
+#             price = float(row[2])
+#             total_cost += nshares * price
+#     return total_cost
+#
+#
+# cost = portfolio_cost('../../Work/Data/missing.csv')
+# print(cost)
+#################################################################
+import csv
 
 
 def portfolio_cost(filename):
     total_cost = 0.0
-    with open(filename,'rt') as f:
+    with open(filename, 'rt') as f:
         rows = csv.reader(f)
         headers = next(rows)
         print(headers)
-        for row in rows:
-            print(row)
-            nshares = int(row[1])
-            price = float(row[2])
-            total_cost += nshares * price
+        for rowno, row in enumerate(rows, start=1):
+            # print(row)
+            record = dict(zip(headers, row))
+            try:
+                nshares = int(record['shares'])
+                price = float(record['price'])
+                total_cost += nshares * price
+            except ValueError:
+                print(f'Row {rowno}: Bad row:{row}')
     return total_cost
 
 
-print(sys.argv)
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-else:
-    filename = '../../Work/Data/portfolio.csv'
-
-cost = portfolio_cost(filename)
-print('Total cost:', cost)
+cost = portfolio_cost('../../Work/Data/portfolio.csv')
+print(cost)

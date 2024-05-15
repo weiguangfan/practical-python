@@ -130,58 +130,58 @@
 # print('Gain', total_value - total_cost)
 
 #####################################################
-import csv
-
-def read_prices(filename):
-    prices = {}
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        for row in rows:
-            try:
-                prices[row[0]] = float(row[1])
-            except IndexError:
-                pass
-    return prices
-
-
-def read_portfolio(filename):
-    portfolio = []
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        headers = next(rows)
-        for row in rows:
-            stock = {
-                'name': row[0],
-                'shares': int(row[1]),
-                'price': float(row[2])
-            }
-            portfolio.append(stock)
-    return portfolio
-
-
-def make_report(portfolio, prices):
-    rows = []
-    for stock in portfolio:
-        current_price = prices[stock['name']]
-        change = current_price - stock['price']
-        summary = (stock['name'], stock['shares'], current_price, change)
-        rows.append(summary)
-    return rows
-
-
-portfolio = read_portfolio('../Work/Data/portfolio.csv')
-prices = read_prices('../Work/Data/prices.csv')
-report = make_report(portfolio,prices)
-print(report)
-headers = ('Name', 'Shares', 'Price', 'Change',)
-print('%10s %10s %10s %10s' % headers)
-print(('-' * 10 + ' ') * len(headers))
-# for row in report:
-#     print('%10s %10d %10.2f %10.2f' % row)
+# import csv
+#
+# def read_prices(filename):
+#     prices = {}
+#     with open(filename, 'rt') as f:
+#         rows = csv.reader(f)
+#         for row in rows:
+#             try:
+#                 prices[row[0]] = float(row[1])
+#             except IndexError:
+#                 pass
+#     return prices
+#
+#
+# def read_portfolio(filename):
+#     portfolio = []
+#     with open(filename, 'rt') as f:
+#         rows = csv.reader(f)
+#         headers = next(rows)
+#         for row in rows:
+#             stock = {
+#                 'name': row[0],
+#                 'shares': int(row[1]),
+#                 'price': float(row[2])
+#             }
+#             portfolio.append(stock)
+#     return portfolio
+#
+#
+# def make_report(portfolio, prices):
+#     rows = []
+#     for stock in portfolio:
+#         current_price = prices[stock['name']]
+#         change = current_price - stock['price']
+#         summary = (stock['name'], stock['shares'], current_price, change)
+#         rows.append(summary)
+#     return rows
+#
+#
+# portfolio = read_portfolio('../Work/Data/portfolio.csv')
+# prices = read_prices('../Work/Data/prices.csv')
+# report = make_report(portfolio,prices)
+# print(report)
+# headers = ('Name', 'Shares', 'Price', 'Change',)
+# print('%10s %10s %10s %10s' % headers)
+# print(('-' * 10 + ' ') * len(headers))
+# # for row in report:
+# #     print('%10s %10d %10.2f %10.2f' % row)
+# # for name, shares, price, change in report:
+# #     print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
 # for name, shares, price, change in report:
-#     print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
-for name, shares, price, change in report:
-    print(f'{name:>10s} {shares:>10d} {price:$>10,.2f} {change:>10.2f}')
+#     print(f'{name:>10s} {shares:>10d} {price:$>10,.2f} {change:>10.2f}')
 
 #####################################################
 # import csv
@@ -236,12 +236,43 @@ for name, shares, price, change in report:
 # #     print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
 # for name, shares, price, change in report:
 #     print(f'{name:>10s} {shares:>10d} {price:$>10,.2f} {change:>10.2f}')
+#####################################################
+import csv
 
 
+def read_prices(filename):
+    prices = {}
+    with open(filename, 'rt') as f:
+        rows = csv.reader(f)
+        for row in rows:
+            try:
+                prices[row[0]] = float(row[1])
+            except IndexError:
+                pass
+    return prices
 
 
+def read_portfolio(filename):
+    portfolio = []
+    with open(filename, 'rt') as f:
+        rows = csv.reader(f)
+        headers = next(rows)
+        for rowno, row in enumerate(rows, start=1):
+            record = dict(zip(headers, row))
+            stock = {
+                'name': record['name'],
+                'shares': int(record['shares']),
+                'price': float(record['price'])
+            }
+            portfolio.append(stock)
+    return portfolio
 
 
-
-
-
+def make_report(portfolio, prices):
+    rows = []
+    for stock in portfolio:
+        current_price = prices[stock['name']]
+        change = current_price - stock['price']
+        summary = (stock['name'], stock['shares'], current_price, change)
+        rows.append(summary)
+    return rows
