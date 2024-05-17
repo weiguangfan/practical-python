@@ -62,7 +62,7 @@ from fileparse import parse_csv
 
 portfolio = parse_csv('../Work/Data/portfolio.csv', select=['name', 'shares', 'price'],types=[str, int, float])
 print(portfolio)
-#########################################
+
 
 
 
