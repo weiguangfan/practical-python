@@ -57,11 +57,21 @@
 # print(s.shares)
 # print(s.cost())
 ###########################
-import fileparse
-import stock
-with open('../Work/Data/portfolio.csv') as lines:
-    portdicts = fileparse.parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float])
-portfolio = [stock.stock(d['name'],d['shares'],d['price']) for d in portdicts]
-print(portfolio)
-print(sum([s.cost() for s in portfolio]))
+# import fileparse
+# import stock
+# with open('../Work/Data/portfolio.csv') as lines:
+#     portdicts = fileparse.parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float])
+# portfolio = [stock.stock(d['name'],d['shares'],d['price']) for d in portdicts]
+# print(portfolio)
+# print(sum([s.cost() for s in portfolio]))
 ###########################
+import pcost
+
+print(pcost.portfolio_cost('../Work/Data/portfolio.csv'))
+
+import report
+
+print(report.portfolio_report('../Work/Data/portfolio.csv', '../Work/Data/prices.csv'))
+
+
+
