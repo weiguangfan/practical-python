@@ -122,3 +122,17 @@ class stock:
         Sell a number of shares
         '''
         self.shares -= nshares
+
+
+class MyStock(stock):
+    def __init__(self, name, shares, price, factor):
+        # Check the call to 'super' and '__init__'
+        super().__init__(name, shares, price)
+        self.factor = factor
+
+    def panic(self):
+        self.sell(self.shares)
+
+    def cost(self):
+        return self.factor * super().cost()
+
