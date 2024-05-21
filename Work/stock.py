@@ -21,27 +21,27 @@
 #         self.shares -= nshares
 
 ##########################################
-class stock:
-    '''
-    An instance of a stock holding consisting of name,shares,and price.
-    '''
-
-    def __init__(self, name, shares, price):
-        self.name = name
-        self.shares = shares
-        self.price = price
-
-    def cost(self):
-        '''
-        Return the cost as shares*price
-        '''
-        return self.shares * self.price
-
-    def sell(self, nshares):
-        '''
-        Sell a number of shares
-        '''
-        self.shares -= nshares
+# class stock:
+#     '''
+#     An instance of a stock holding consisting of name,shares,and price.
+#     '''
+#
+#     def __init__(self, name, shares, price):
+#         self.name = name
+#         self.shares = shares
+#         self.price = price
+#
+#     def cost(self):
+#         '''
+#         Return the cost as shares*price
+#         '''
+#         return self.shares * self.price
+#
+#     def sell(self, nshares):
+#         '''
+#         Sell a number of shares
+#         '''
+#         self.shares -= nshares
 
 
 # class MyStock(stock):
@@ -81,41 +81,44 @@ class stock:
 # s = MyStock('GOOG', 100, 490.1)
 # print(s.cost())
 ##########################################
-class MyStock(stock):
-    def __init__(self, name, shares, price, factor):
-        # Check the call to 'super' and '__init__'
-        super().__init__(name, shares, price)
-        self.factor = factor
+# class MyStock(stock):
+#     def __init__(self, name, shares, price, factor):
+#         # Check the call to 'super' and '__init__'
+#         super().__init__(name, shares, price)
+#         self.factor = factor
+#
+#     def panic(self):
+#         self.sell(self.shares)
+#
+#     def cost(self):
+#         return self.factor * super().cost()
 
-    def panic(self):
-        self.sell(self.shares)
+
+# s = MyStock('GOOG', 100, 490.1, 1.25)
+# print(s.cost())
+# print(isinstance(s, stock))
+##########################################
+class stock:
+    '''
+    An instance of a stock holding consisting of name,shares,and price.
+    '''
+
+    def __init__(self, name, shares, price):
+        self.name = name
+        self.shares = shares
+        self.price = price
+
+    def __repr__(self):
+        return f'Stock({self.name!r},{self.shares!r},{self.price!r})'
 
     def cost(self):
-        return self.factor * super().cost()
+        '''
+        Return the cost as shares*price
+        '''
+        return self.shares * self.price
 
-
-s = MyStock('GOOG', 100, 490.1, 1.25)
-print(s.cost())
-print(isinstance(s, stock))
-##########################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def sell(self, nshares):
+        '''
+        Sell a number of shares
+        '''
+        self.shares -= nshares
