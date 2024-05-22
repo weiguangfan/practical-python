@@ -29,8 +29,8 @@ s.shares = 75
 print(s.shares)
 print(s.cost)
 s.price = 385.15
-# s.prices = 410.2
-
+# s.prices = 410.2  # 报错
+# print(s.__dict__)  # 报错
 
 
 
